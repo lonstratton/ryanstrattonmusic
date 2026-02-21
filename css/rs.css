@@ -66,8 +66,7 @@ a {
 	font-weight: normal;
 	cursor: pointer;
 	text-decoration: none;
-	transition:color 0.2s ease;
-	-webkit-transition:color 0.2s ease;
+	transition: color 0.2s ease;
 }
 a:hover {
 	color: #5b00b2;
@@ -352,19 +351,9 @@ figure {
 	overflow: hidden;
 	margin-bottom: 1em;
 }
-figure figcaption {
-}
 img {
 	max-width: 100%;
 	height: auto;
-	width: auto;
-}
-a img {
-	-webkit-transition: opacity 1s ease;
-	transition: opacity 1s ease;
-}
-a img:hover {
-	opacity: 0.7;
 }
 /* -------------------------------------------------------------
 ======	PAGES
@@ -385,7 +374,7 @@ header nav ul {
 	padding: 1.5em 4em 0 0;
 	line-height: 2em;
 }
-nav a, menu a {
+nav a {
 	text-decoration: none;
 	color: #fff;
 }
@@ -452,6 +441,12 @@ footer li:last-child {
 	text-align: center;
 	margin: 0 auto;
 }
+footer a img {
+	transition: opacity .3s ease;
+}
+footer a:hover img {
+	opacity: 0.7;
+}
 /* -- HOME-PAGE
 ------------------------------------------------------------- */
 /* Services */
@@ -470,40 +465,44 @@ footer li:last-child {
 }
 /* -- WORKS / Home-page and Works-page
 ------------------------------------------------------------- */
-.works-page figure > a {
-	display: block;
-	height: 100%;
-	width: 100%;
-	overflow: hidden;
-	position: relative;
-}
+.works-page figure > a,
 .works figure > a {
 	display: block;
 	height: 100%;
 	width: 100%;
 	overflow: hidden;
-	position: relative;
+	position: relative;   /* anchor becomes positioning context */
+}
+.works figure > a {
 	padding-top: 1em;
 }
-.works-page figure .zoom {
+.works figure img,
+.works-page figure img {
 	display: block;
-	position: absolute;
-	top: 10px;
-	left: 0;
-	background: url(../img/zoom.png) no-repeat center;
 	width: 100%;
-	height: 100%;
-	opacity: 0;
+	height: auto;
+	transition: opacity .35s ease;
+	position: relative;
+	z-index: 1;
 }
-.works figure .zoom {
-	display: block;
+.works figure .zoom,
+.works-page figure .zoom {
 	position: absolute;
-	top: 10px;
-	left: 0;
+	inset: 0;
 	background: url(../img/zoom.png) no-repeat center;
-	width: 100%;
-	height: 100%;
+	background-size: 40px 40px;
 	opacity: 0;
+	transition: opacity .35s ease;
+	pointer-events: none;
+	z-index: 2; 
+}
+.works figure:hover img,
+.works-page figure:hover img {
+	opacity: 0.6;
+}
+.works figure:hover .zoom,
+.works-page figure:hover .zoom {
+	opacity: 1;
 }
 .works figure figcaption {
 	margin-top: 0.5em;
@@ -520,18 +519,22 @@ footer li:last-child {
 }
 .works-page .works figure {
 	margin-bottom: 2em;
+	transition: opacity .35s ease;
+}
+.works-page .works figure.dimmed {
+    opacity: 0.15;
 }
 .main aside {
 	margin-bottom: 2em
 }
-.main aside menu {
+.main aside ul {
 	padding: 0 0 0 0;
 	line-height: 1.8em;
 }
-.main aside menu a {
+.main aside ul a {
 	color: #999;
 }
-.main aside menu .buttonactive {
+.main aside ul .buttonactive {
 	color: #5b00b2;
 }
 /* -- VIDEO 
@@ -616,9 +619,6 @@ width: 75%;
 	/**/
  h1 {
 font-size: 3.1em;
-}
- .slide figcaption {
-width: 80%;
 }
  footer li {
 float: left;

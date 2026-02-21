@@ -1,52 +1,35 @@
-// iOS fix for sticky :hover
-document.addEventListener("touchstart", function() {}, true);
+// Portfolio filtering
 
-$(document).ready(function() {
-  
-// Smooth scrolling - css-tricks.com
-	function filterPath(string){return string.replace(/^\//,'').replace(/(index|default).[a-zA-Z]{3,4}$/,'').replace(/\/$/,'');}var locationPath=filterPath(location.pathname);var scrollElem=scrollableElement('html','body');$('a[href*=#nav]').each(function(){var thisPath=filterPath(this.pathname)||locationPath;if(locationPath==thisPath&&(location.hostname==this.hostname||!this.hostname)&&this.hash.replace(/#/,'')){var $target=$(this.hash),target=this.hash;if(target){var targetOffset=$target.offset().top;$(this).click(function(event){event.preventDefault();$(scrollElem).animate({scrollTop:targetOffset},'slow',function(){location.hash=target;});});}}});function scrollableElement(els){for(var i=0,argLength=arguments.length;i<argLength;i++){var el=arguments[i],$scrollElement=$(el);if($scrollElement.scrollTop()>0){return el;}else{$scrollElement.scrollTop(1);var isScrollable=$scrollElement.scrollTop()>0;$scrollElement.scrollTop(0);if(isScrollable){return el;}}}return[];}
+document.addEventListener('DOMContentLoaded', () => {
 
-	
-// OPACITY
-	$(".zoom").css({"opacity":0});
-	$(".zoom").hover(
-		function(){$(this).stop().animate({ "opacity": 0.9 }, 'slow');
-		$(this).siblings('img').stop().animate({ "opacity": 0.7 }, 'fast');},
-		
-		function(){$(this).stop().animate({ "opacity": 0 }, 'fast');
-		$(this).siblings('img').stop().animate({ "opacity": 1 }, 'fast');});
+  const buttons = document.querySelectorAll('[id^="work_"]');
+  const items   = document.querySelectorAll('.works-page .works figure');
+  const menuLinks = document.querySelectorAll('.filter-menu a');
 
+  buttons.forEach(button => {
 
-// PORTFOLIO sorting	
-	// NAV 
-	$('.works-page aside menu a').click(function(){
-		$(this).addClass("buttonactive").siblings().removeClass("buttonactive")
-	});
-	// SELECTION
-	$("#work_1").click(function() {
-	  $(".works figure").not(".work_1").stop().fadeTo("normal",0.1);
-	  $(".work_1").stop().fadeTo("normal",1);
-	});
-	
-	$("#work_2").click(function() {
-	  $(".works figure").not(".work_2").stop().fadeTo("normal",0.1);
-	  $(".work_2").stop().fadeTo("normal",1);
-	});
-	
-	$("#work_3").click(function() {
-	  $(".works figure").not(".work_3").stop().fadeTo("normal",0.1);
-	  $(".work_3").stop().fadeTo("normal",1);
-	});
-	
-	$("#work_4").click(function() {
-	  $(".works figure").not(".work_4").stop().fadeTo("normal",0.1);
-	  $(".work_4").stop().fadeTo("normal",1);
-	});
-	
-	$("#work_all").click(function() {
-	  $(".works figure").stop().fadeTo("normal",1);
-	});
+    button.addEventListener('click', function () {
 
-	
-// END
+      const filter = this.id;
+
+      // Active button state
+      menuLinks.forEach(btn => btn.classList.remove('buttonactive'));
+      this.classList.add('buttonactive');
+
+      if (filter === "work_all") {
+        items.forEach(item => item.classList.remove('dimmed'));
+        return;
+      }
+
+      items.forEach(item => {
+        item.classList.toggle(
+          'dimmed',
+          !item.classList.contains(filter)
+        );
+      });
+
+    });
+
+  });
+
 });
