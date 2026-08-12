@@ -541,25 +541,28 @@ footer a:hover img {
 }
 /* -- VIDEO 
 ------------------------------------------------------------- */
-.video-container
-{
-	position: relative;
+/* -- VIDEO 
+------------------------------------------------------------- */
+.video-container {
 	width: 100%;
-	padding-bottom: 56.25%;
-	/* Adjust this value based on your video's aspect ratio (height / width * 100) */
 	margin-bottom: 2em;
 	overflow: hidden;
 }
-.video-container iframe
-{
-	position: absolute;
-	top: 0;
-	left: 0;
+
+.video-container iframe {
+	display: block;
 	width: 100%;
 	height: 100%;
+	border: 0;
 }
-iframe {border:none;
+.ar-16x9 {
+	aspect-ratio: 16 / 9;
 }
+
+.ar-185 {
+	aspect-ratio: 1.85 / 1;
+}
+
 /* -- SUBPAGES -- */
 
 /* Work-page (single) */
